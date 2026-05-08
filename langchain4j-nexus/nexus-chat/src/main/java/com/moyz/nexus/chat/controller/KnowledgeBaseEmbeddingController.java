@@ -1,0 +1,25 @@
+package com.moyz.nexus.chat.controller;
+
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.moyz.nexus.common.dto.KbItemEmbeddingDto;
+import com.moyz.nexus.common.service.embedding.IKnowledgeEmbeddingService;
+import jakarta.annotation.Resource;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/knowledge-base-embedding")
+@Validated
+public class KnowledgeBaseEmbeddingController {
+
+    @Resource
+    private IKnowledgeEmbeddingService iKnowledgeEmbeddingService;
+
+    @GetMapping("/list/{kbItemUuid}")
+    public Page<KbItemEmbeddingDto> list(@PathVariable String kbItemUuid, int currentPage, int pageSize) {
+        return iKnowledgeEmbeddingService.listByItemUuid(kbItemUuid, currentPage, pageSize);
+    }
+}
